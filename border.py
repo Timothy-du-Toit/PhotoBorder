@@ -26,12 +26,12 @@ def DigestWorkingFolder(inputPath):
 
 try:
         
-    # inputPath = input("Input folder path:\n")
-    additionInput = input("Enter the number of pixels to add on the widest dimension \n")
+    inputPath = input("Input folder path: ")
+    additionInput = input("Enter the number of pixels to add on the widest dimension: ")
     pixelAddition = 0 if additionInput == "" else int(additionInput)
     print("The output ratio will be 1:1 (square) with border width {}".format(pixelAddition))
 
-    inputPath = "D:\Timothy\Pictures\TO POST\\2Oceans Cape Town\TEST"
+    # inputPath = "D:\Timothy\Pictures\TO POST\\2Oceans Cape Town\TEST"
         
         
     
@@ -50,4 +50,4 @@ try:
 except ValueError:
     print("Provide a correct numerical value for the pixel addition")       
 except:
-    print("An error occurred while processing files./nPlease confirm that the provided file path was correct")
+    print("An error occurred while processing files.\nPlease confirm that the provided file path was correct")
