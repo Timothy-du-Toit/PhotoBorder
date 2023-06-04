@@ -2,6 +2,7 @@ from PIL import Image
 import os
 OUTPUT_FOLDER = "processed_images"
 
+
 def ResizeImage(inputPath, fileName, pixelAddition):
     raw_image = Image.open("{}/{}".format(inputPath, fileName))
     raw_image_size = raw_image.size
@@ -23,23 +24,15 @@ def DigestWorkingFolder(inputPath):
     return fileNames
 
 
-
 try:
         
     inputPath = input("Input folder path: ")
     additionInput = input("Enter the number of pixels to add on the widest dimension: ")
     pixelAddition = 0 if additionInput == "" else int(additionInput)
     print("The output ratio will be 1:1 (square) with border width {}".format(pixelAddition))
-
-    # inputPath = "D:\Timothy\Pictures\TO POST\\2Oceans Cape Town\TEST"
-        
-        
     
     fileNames = DigestWorkingFolder(inputPath)
     
-    
-    resized_images = {}
-
     for file in fileNames:
         if file.endswith(".png") | file.endswith(".jpg"):
             resized_image = ResizeImage(inputPath, file, pixelAddition)
