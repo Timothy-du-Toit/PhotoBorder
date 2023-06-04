@@ -1,12 +1,3 @@
-# Focus of this application is to add a border around an image
-# 1 - Application should allow for dimension selection (eg: 3:4), and after that is added, the width of the smallest border
-# eg: say image is 400x300 pixels, and the selected ratio is 1:1, and pixels is 300px, final image should be 
-# 400x400(+100) with an additional 300px --> 700x700 (400(+300)x300(+400))
-# Process:
-# - Select biggest dimension - max_dim
-# - max_dim+pixel_addition
-# - set other dimension to the resul
-# - done
 from PIL import Image
 import os
 
