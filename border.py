@@ -8,12 +8,12 @@ def ResizeImage(inputPath, fileName, pixelAddition):
     raw_image_size = raw_image.size
     largest_dimension = max(raw_image_size)
     updated_largest_dimension = largest_dimension + pixelAddition*2
-
     new_size = (updated_largest_dimension, updated_largest_dimension)
 
     resized_image = Image.new("RGB", new_size, color="white")
     box = tuple((n - o) // 2 for n, o in zip(new_size, raw_image_size))
     resized_image.paste(raw_image, box)
+
     return resized_image
 
 
@@ -36,7 +36,7 @@ try:
     for file in fileNames:
         if file.endswith(".png") | file.endswith(".jpg"):
             resized_image = ResizeImage(inputPath, file, pixelAddition)
-            resized_images[file] = resized_image
+            
             resized_image.save("{}\\{}\\{}".format(inputPath, OUTPUT_FOLDER, file))
         
     print("Resizing Completed for files")
