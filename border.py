@@ -19,9 +19,15 @@ def ResizeImage(inputPath, fileName, pixelAddition):
 
 def DigestWorkingFolder(inputPath):
     fileNames = os.listdir(inputPath)
+    filteredNames = []
     if fileNames.count(OUTPUT_FOLDER) == 0:
         outputPath = os.mkdir("{}\\{}".format(inputPath, OUTPUT_FOLDER))
-    return fileNames
+
+    for file in fileNames:
+        if  file.endswith(".png") or file.endswith(".jpg"):
+            filteredNames.append(file)
+    
+    return filteredNames
 
 
 try:
@@ -33,14 +39,20 @@ try:
     
     fileNames = DigestWorkingFolder(inputPath)
     
+    print("Resizing {} pictures".format(len(fileNames)))
+    i = 1
     for file in fileNames:
-        if file.endswith(".png") | file.endswith(".jpg"):
-            resized_image = ResizeImage(inputPath, file, pixelAddition)
-            
-            resized_image.save("{}\\{}\\{}".format(inputPath, OUTPUT_FOLDER, file))
         
-    print("Resizing Completed for files")
+        print("Resizing picture {} of {}".format(i, len(fileNames)))
+        resized_image = ResizeImage(inputPath, file, pixelAddition)
+            
+        resized_image.save("{}\\{}\\{}".format(inputPath, OUTPUT_FOLDER, file))
+        
+        i+=1;
+    print("Resizing Completed for all files")
 except ValueError:
     print("Provide a correct numerical value for the pixel addition")       
 except:
     print("An error occurred while processing files.\nPlease confirm that the provided file path was correct")
+finally:
+    os.system("pause")
