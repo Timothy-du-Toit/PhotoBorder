@@ -1,8 +1,9 @@
 from PIL import Image
 import os
+OUTPUT_FOLDER = "processed_images"
 
-def ResizeImage(fileName, pixelAddition):
-    raw_image = Image.open("unprocessed_images/{}".format(fileName))
+def ResizeImage(inputPath, fileName, pixelAddition):
+    raw_image = Image.open("{}/{}".format(inputPath, fileName))
     raw_image_size = raw_image.size
     largest_dimension = max(raw_image_size)
     updated_largest_dimension = largest_dimension + pixelAddition*2
@@ -14,22 +15,39 @@ def ResizeImage(fileName, pixelAddition):
     resized_image.paste(raw_image, box)
     return resized_image
 
-def CollectImageFileNames():
-    files = os.listdir("unprocessed_images")
-    return files
+
+def DigestWorkingFolder(inputPath):
+    fileNames = os.listdir(inputPath)
+    if fileNames.count(OUTPUT_FOLDER) == 0:
+        outputPath = os.mkdir("{}\\{}".format(inputPath, OUTPUT_FOLDER))
+    return fileNames
 
 
-addition_input = input("Enter the number of pixels to add on the widest dimension \n")
-pixel_addition = 0 if addition_input == "" else int(addition_input)
-print("The output ratio will be 1:1 (square) with border width {}".format(pixel_addition))
-fileNames = CollectImageFileNames()
 
-resized_images = {}
+try:
+        
+    # inputPath = input("Input folder path:\n")
+    additionInput = input("Enter the number of pixels to add on the widest dimension \n")
+    pixelAddition = 0 if additionInput == "" else int(additionInput)
+    print("The output ratio will be 1:1 (square) with border width {}".format(pixelAddition))
 
-for file in fileNames:
-    resized_image = ResizeImage(file, pixel_addition)
-    resized_images[file] = resized_image
-    resized_image.save("processed_images/{}".format(file))
+    inputPath = "D:\Timothy\Pictures\TO POST\\2Oceans Cape Town\TEST"
+        
+        
     
-print("Resizing Completed for files\n{}".format(fileNames))
+    fileNames = DigestWorkingFolder(inputPath)
     
+    
+    resized_images = {}
+
+    for file in fileNames:
+        if file.endswith(".png") | file.endswith(".jpg"):
+            resized_image = ResizeImage(inputPath, file, pixelAddition)
+            resized_images[file] = resized_image
+            resized_image.save("{}\\{}\\{}".format(inputPath, OUTPUT_FOLDER, file))
+        
+    print("Resizing Completed for files")
+except ValueError:
+    print("Provide a correct numerical value for the pixel addition")       
+except:
+    print("An error occurred while processing files./nPlease confirm that the provided file path was correct")
