@@ -30,9 +30,7 @@ def DigestWorkingFolder(inputPath):
     return filteredNames
 
 
-try:
-        
-    inputPath = input("Input folder path: ")
+def Resize(inputPath):
     additionInput = input("Enter the number of pixels to add on the widest dimension: ")
     pixelAddition = 0 if additionInput == "" else int(additionInput)
     print("The output ratio will be 1:1 (square) with border width {}".format(pixelAddition))
@@ -50,6 +48,18 @@ try:
         
         i+=1;
     print("Resizing Completed for all files")
+    
+
+
+try:
+    inputPath = input("Input folder path: ")
+
+    while (inputPath != ""):
+        Resize(inputPath)
+        inputPath = input("Input folder path: ")
+
+    
+    
 except ValueError:
     print("Provide a correct numerical value for the pixel addition")       
 except:
